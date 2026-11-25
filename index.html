@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abdul Manan | WordPress Architect, Shopify, SEO &amp; Growth</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <style>
+    /* =========================================
+       HI-FI HOME UPGRADES & SMOOTH ANIMATIONS
+       ========================================= */
+
+    /* 1. Top Neon Scroll Progress Bar */
+    .scroll-progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--purple), var(--green));
+      box-shadow: 0 0 12px rgba(130, 251, 114, 0.7);
+      z-index: 9999;
+      pointer-events: none;
+      transition: width 0.08s linear;
+    }
+
+    /* 2. Staggered Cascade Reveal for Cards */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal .bento-card:nth-child(1),
+    .reveal .hifi-project-card:nth-child(1),
+    .reveal .pipe-step:nth-child(1) { transition-delay: 0.05s; }
+
+    .reveal .bento-card:nth-child(2),
+    .reveal .hifi-project-card:nth-child(2),
+    .reveal .pipe-step:nth-child(3) { transition-delay: 0.14s; }
+
+    .reveal .bento-card:nth-child(3),
+    .reveal .hifi-project-card:nth-child(3),
+    .reveal .pipe-step:nth-child(5) { transition-delay: 0.22s; }
+
+    .reveal .bento-card:nth-child(4) { transition-delay: 0.3s; }
+
+    /* 3. Smooth Hero Photo Monochrome-to-Color Crossfade */
+    .hud-frame {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hud-frame .hero-img-mono {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: grayscale(100%) contrast(1.14) brightness(0.86);
+      transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hud-frame .hero-img-color {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      z-index: 1;
+      filter: contrast(1.05) saturate(1.15) brightness(1.02);
+      opacity: 0;
+      transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .hud-profile-wrapper:hover .hud-frame .hero-img-color {
+      opacity: 1;
+      transform: scale(1.03);
+    }
+
+    .hud-profile-wrapper:hover .hud-frame .hero-img-mono {
+      transform: scale(1.03);
+    }
+
+    .hud-corner,
+    .hud-scanline,
+    .hover-color-hint,
+    .hud-overlay-bar {
+      z-index: 3;
+    }
+
+    .hud-profile-wrapper:hover .hover-color-hint {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+
+    @media (hover: none) {
+      .hud-frame .hero-img-color {
+        opacity: 1;
+      }
+      .hover-color-hint {
+        display: none;
+      }
+    }
+
+    /* 4. Section Bottom CTA Center Row */
+    .section-bottom-cta {
+      margin-top: 34px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* 5. About Spotlight Teaser Strip on Home */
+    .home-about-strip {
+      position: relative;
+      background: linear-gradient(145deg, rgba(15, 15, 22, 0.92), rgba(98, 62, 191, 0.12));
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 28px;
+      padding: 34px 38px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+      overflow: hidden;
+      transition: border-color 0.35s ease, transform 0.35s ease;
+    }
+
+    .home-about-strip:hover {
+      border-color: rgba(130, 251, 114, 0.38);
+      transform: translateY(-3px);
+    }
+
+    .home-about-strip::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(420px circle at var(--x, 50%) var(--y, 50%), rgba(130, 251, 114, 0.09), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .home-about-strip:hover::before {
+      opacity: 1;
+    }
+
+    .has-left {
+      max-width: 640px;
+    }
+
+    .has-left h3 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      margin: 6px 0 10px;
+    }
+
+    .has-left p {
+      color: var(--muted);
+      font-size: 0.96rem;
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+
+    .has-region-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .has-region-tags span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      padding: 4px 11px;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text);
+    }
+
+    .has-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    /* 6. Magnetic Button Smooth Spring */
+    .magnetic-btn {
+      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease !important;
+      will-change: transform;
+    }
+
+    /* Light Mode Support for New Elements */
+    [data-theme="light"] .home-about-strip {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(109, 40, 217, 0.06));
+      border: 1px solid rgba(15, 23, 42, 0.1);
+      box-shadow: 0 14px 36px rgba(15, 23, 42, 0.06);
+    }
+
+    [data-theme="light"] .has-region-tags span {
+      background: rgba(15, 23, 42, 0.05);
+      border-color: rgba(15, 23, 42, 0.12);
+      color: #1e293b;
+    }
+
+    @media (max-width: 768px) {
+      .home-about-strip {
+        padding: 26px 22px;
+      }
+      .has-actions {
+        width: 100%;
+      }
+      .has-actions a {
+        text-align: center;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Neon Scroll Progress Bar -->
+  <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+
+  <!-- Cyber Grid & Ambient Glows -->
+  <div class="cyber-grid"></div>
+  <div class="bg-glow glow-purple"></div>
+  <div class="bg-glow glow-green"></div>
+
+  <!-- Upgraded Liquid Glass Header -->
+  <!-- Upgraded Liquid Glass Header -->
+  <header class="glass-header" id="mainHeader">
+    <div class="nav-wrapper">
+      <a href="index.html" class="logo custom-header-logo" aria-label="Abdul Manan Home">
+        <img src="header-logo.png" alt="Abdul Manan" />
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html" class="active">Home</a>
+        <a href="services.html">Services</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="nav-right-actions">
+        <button type="button" class="theme-toggle-btn" id="themeToggleBtn" title="Switch Light / Dark Mode" aria-label="Toggle Theme">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <a href="https://wa.me/923084665789?text=Hi%20Abdul%20Manan,%20let's%20discuss%20a%20project." target="_blank" class="header-cta-btn">
+          <span class="cta-pulse"></span>
+          <span>Let's Talk</span>
+          <svg class="cta-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <button type="button" class="mobile-toggle-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hi-Fi Hero Section -->
+  <main id="home" class="hero hifi-hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="status-badge">
+          <span class="dot"></span> Available for Global &amp; Local Projects
+        </div>
+
+        <!-- Live Terminal Typing Line -->
+        <div class="terminal-role-line">
+          <span class="t-prompt">&gt;_</span>
+          <span id="typedRole">WordPress &amp; Shopify Architecture</span><span class="t-cursor">|</span>
+        </div>
+
+        <h1 class="hero-title">
+          Building High-Speed <span class="shimmer-green">Websites</span> &amp; <span class="text-purple">Growth Engines</span>
+        </h1>
+        <p class="hero-subtitle">
+          I am Abdul Manan. I engineer custom WordPress &amp; Shopify stores, rank businesses on Google with Technical SEO, and scale lead generation through data-backed Meta Ads.
+        </p>
+
+        <div class="hero-actions">
+          <a href="contact.html" class="liquid-btn magnetic-btn"><span>Start a Project &rarr;</span></a>
+          <a href="projects.html" class="outline-btn magnetic-btn">View Live Projects</a>
+          <a href="services.html" class="outline-btn magnetic-btn">Services</a>
+        </div>
+
+        <!-- Mini Proof Metrics -->
+        <div class="hero-metrics">
+          <div class="metric-item">
+            <strong class="text-green">99/100</strong>
+            <span>Speed Score Target</span>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-item">
+            <strong>5+ Regions</strong>
+            <span>PK • UAE • UK • TR • US</span>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-item">
+            <strong class="text-purple">100%</strong>
+            <span>Custom UI Builds</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side: Interactive 3D HUD Profile Frame (Smooth B&W to Color Crossfade) -->
+      <div class="hero-image-box">
+        <div class="hud-profile-wrapper" id="tiltProfile">
+          <!-- Floating Top Badge -->
+          <div class="hud-float-badge top-badge float-anim-1">
+            <span class="score-dot"></span>
+            <div>
+              <div class="hud-b-title">Core Web Vitals</div>
+              <div class="hud-b-sub text-green">Passed // 0.7s Load</div>
+            </div>
+          </div>
+
+          <!-- Main Neon Image Container -->
+          <div class="neon-frame hud-frame">
+            <!-- HUD Corner Brackets -->
+            <span class="hud-corner tl"></span>
+            <span class="hud-corner tr"></span>
+            <span class="hud-corner bl"></span>
+            <span class="hud-corner br"></span>
+
+            <!-- Hover Scanline -->
+            <div class="hud-scanline"></div>
+
+            <!-- Dual Layer Smooth B&W to Color Image -->
+            <img src="abdul-manan.jpg" class="hero-img-mono" alt="Abdul Manan" />
+            <img src="abdul-manan.jpg" class="hero-img-color" alt="" aria-hidden="true" />
+
+            <!-- Hover Hint Pill -->
+            <div class="hover-color-hint">HOVER TO COLORIZE</div>
+
+            <div class="hud-overlay-bar">
+              <span class="mono-tag">DEV // MARKETER</span>
+              <span class="hud-loc">Lahore, PK</span>
+            </div>
+          </div>
+
+          <!-- Floating Bottom Badge -->
+          <div class="hud-float-badge bottom-badge float-anim-2">
+            <span class="mono-tag">STACK:</span>
+            <span class="hud-stack-text">WP &bull; Shopify &bull; RankMath &bull; Ads</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Infinite Scrolling Capabilities Ticker -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <span>WORDPRESS ARCHITECTURE</span>
+      <span class="m-dot">//</span>
+      <span>SHOPIFY E-COMMERCE</span>
+      <span class="m-dot">//</span>
+      <span>TECHNICAL &amp; ON-PAGE SEO</span>
+      <span class="m-dot">//</span>
+      <span>META AD CAMPAIGNS</span>
+      <span class="m-dot">//</span>
+      <span>CLOUDFLARE &amp; SPEED OPTIMIZATION</span>
+      <span class="m-dot">//</span>
+      <span>FLUTTER (DART) COMING SOON</span>
+      <span class="m-dot">//</span>
+      <span>WORDPRESS ARCHITECTURE</span>
+      <span class="m-dot">//</span>
+      <span>SHOPIFY E-COMMERCE</span>
+      <span class="m-dot">//</span>
+      <span>TECHNICAL &amp; ON-PAGE SEO</span>
+      <span class="m-dot">//</span>
+      <span>META AD CAMPAIGNS</span>
+      <span class="m-dot">//</span>
+      <span>CLOUDFLARE &amp; SPEED OPTIMIZATION</span>
+      <span class="m-dot">//</span>
+      <span>FLUTTER (DART) COMING SOON</span>
+      <span class="m-dot">//</span>
+    </div>
+  </div>
+
+  <!-- Core Capabilities Bento Grid -->
+  <section id="services" class="section reveal">
+    <div class="container">
+      <div class="section-top-flex">
+        <div>
+          <span class="mono-tag">WHAT I DO</span>
+          <h2 class="section-title">Core <span class="text-green">Capabilities</span></h2>
+        </div>
+        <a href="services.html" class="outline-btn magnetic-btn">More Services &amp; Packages &rarr;</a>
+      </div>
+
+      <div class="bento-grid">
+        <!-- Bento 1 -->
+        <div class="bento-card span-6">
+          <div>
+            <div class="bento-meta">
+              <span class="mono-tag">01 // WEB &amp; E-COMMERCE</span>
+              <span class="pill-green">Flagship</span>
+            </div>
+            <h3>WordPress &amp; Shopify Websites</h3>
+            <p>High-converting corporate platforms, Shopify stores, and landing pages engineered with clean layouts, mobile responsiveness, and zero bloat.</p>
+          </div>
+          <div class="bento-footer-row">
+            <div class="tech-pills" style="margin-bottom: 0;">
+              <span>WordPress</span>
+              <span>Shopify</span>
+              <span>Elementor Pro</span>
+            </div>
+            <a href="services.html" class="bento-arrow" title="Explore Service">&rarr;</a>
+          </div>
+        </div>
+
+        <!-- Bento 2 -->
+        <div class="bento-card span-6">
+          <div>
+            <div class="bento-meta">
+              <span class="mono-tag">02 // SEARCH VISIBILITY</span>
+              <span class="pill-purple">Organic Growth</span>
+            </div>
+            <h3>Technical &amp; On-Page SEO</h3>
+            <p>Complete Rank Math setup, schema markup, site architecture, and local SEO optimization so ready-to-buy clients find your business first.</p>
+          </div>
+          <div class="bento-footer-row">
+            <div class="tech-pills" style="margin-bottom: 0;">
+              <span>Rank Math</span>
+              <span>Schema</span>
+              <span>Local SEO</span>
+            </div>
+            <a href="services.html" class="bento-arrow" title="Explore Service">&rarr;</a>
+          </div>
+        </div>
+
+        <!-- Bento 3 -->
+        <div class="bento-card span-6">
+          <div>
+            <div class="bento-meta">
+              <span class="mono-tag">03 // PAID ACQUISITION</span>
+            </div>
+            <h3>Social Media Marketing &amp; Ads</h3>
+            <p>Targeted Facebook and Instagram ad funnels built to capture qualified leads, lower ad spend waste, and grow brand authority.</p>
+          </div>
+          <div class="bento-footer-row">
+            <div class="tech-pills" style="margin-bottom: 0;">
+              <span>Meta Ads</span>
+              <span>Lead Funnels</span>
+              <span>Retargeting</span>
+            </div>
+            <a href="services.html" class="bento-arrow" title="Explore Service">&rarr;</a>
+          </div>
+        </div>
+
+        <!-- Bento 4 -->
+        <div class="bento-card span-6">
+          <div>
+            <div class="bento-meta">
+              <span class="mono-tag">04 // PERFORMANCE</span>
+            </div>
+            <h3>Website Redesign &amp; Speed Fix</h3>
+            <p>Upgrading slow, outdated sites into modern sub-second web experiences with Cloudflare caching, asset compression, and security hardening.</p>
+          </div>
+          <div class="bento-footer-row">
+            <div class="tech-pills" style="margin-bottom: 0;">
+              <span>Core Web Vitals</span>
+              <span>Cloudflare</span>
+              <span>UI Overhaul</span>
+            </div>
+            <a href="services.html" class="bento-arrow" title="Explore Service">&rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Direct CTA to Services Page -->
+      <div class="section-bottom-cta">
+        <a href="services.html" class="liquid-btn magnetic-btn"><span>Explore All Services &amp; Packages &rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Execution Pipeline Section -->
+  <section class="section reveal" style="padding-top: 20px;">
+    <div class="container">
+      <div class="pipeline-box">
+        <div class="pipeline-header">
+          <span class="mono-tag">EXECUTION PROTOCOL</span>
+          <h2>From Idea to <span class="text-green">Live Revenue</span> in 3 Phases</h2>
+        </div>
+
+        <div class="pipeline-steps">
+          <div class="pipe-step">
+            <div class="pipe-num">01</div>
+            <h4>Blueprint &amp; UI Architecture</h4>
+            <p>Mapping your user journey, wireframing conversion-focused layouts, and aligning brand aesthetics.</p>
+          </div>
+
+          <div class="pipe-connector"></div>
+
+          <div class="pipe-step">
+            <div class="pipe-num active-num">02</div>
+            <h4>Clean Build &amp; Speed Tuning</h4>
+            <p>Developing responsive WordPress &amp; Shopify pages with zero bloat, Rank Math SEO, and Cloudflare SSL.</p>
+          </div>
+
+          <div class="pipe-connector"></div>
+
+          <div class="pipe-step">
+            <div class="pipe-num">03</div>
+            <h4>Launch &amp; Traffic Scaling</h4>
+            <p>Going live on your domain and activating targeted Meta Ad campaigns to bring consistent leads.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hi-Fi Featured Projects Section -->
+  <section id="portfolio" class="section reveal" style="padding-top: 30px;">
+    <div class="container">
+      <div class="section-header-center">
+        <span class="mono-tag">SELECTED WORK</span>
+        <h2 class="section-title">Featured <span class="text-purple">Projects</span></h2>
+        <p class="section-desc">Live websites engineered across UAE, UK, Turkey, PK, and US for performance and conversion.</p>
+      </div>
+
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <div class="hifi-project-card">
+          <div class="browser-bar">
+            <span class="b-dot red"></span>
+            <span class="b-dot yellow"></span>
+            <span class="b-dot green"></span>
+            <span class="browser-url">ftthdubai.ae</span>
+          </div>
+          <div class="project-preview-banner p-banner-1">
+            <span class="pill-green">UAE // Telecom</span>
+            <div class="preview-title">FTTH DUBAI</div>
+          </div>
+          <div class="project-body">
+            <h3>FTTH Dubai Infrastructure</h3>
+            <p>High-speed corporate website engineered for fiber-to-the-home telecom and networking solutions in Dubai.</p>
+            <div class="tech-pills">
+              <span>WordPress</span>
+              <span>Corporate UI</span>
+              <span>SEO Ready</span>
+            </div>
+            <a href="https://ftthdubai.ae" target="_blank" class="project-live-btn">Visit Live Site &nearr;</a>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="hifi-project-card">
+          <div class="browser-bar">
+            <span class="b-dot red"></span>
+            <span class="b-dot yellow"></span>
+            <span class="b-dot green"></span>
+            <span class="browser-url">cullinanchauffeurs.com</span>
+          </div>
+          <div class="project-preview-banner p-banner-2">
+            <span class="pill-purple">UK // Luxury Mobility</span>
+            <div class="preview-title">CULLINAN</div>
+          </div>
+          <div class="project-body">
+            <h3>Cullinan Chauffeurs UK</h3>
+            <p>Sleek, conversion-focused web platform built for executive chauffeur transport, VIP bookings, and fleet showcase.</p>
+            <div class="tech-pills">
+              <span>Booking UX</span>
+              <span>Rank Math SEO</span>
+              <span>Speed Tuned</span>
+            </div>
+            <a href="https://cullinanchauffeurs.com" target="_blank" class="project-live-btn">Visit Live Site &nearr;</a>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="hifi-project-card">
+          <div class="browser-bar">
+            <span class="b-dot red"></span>
+            <span class="b-dot yellow"></span>
+            <span class="b-dot green"></span>
+            <span class="browser-url">fs1947.com</span>
+          </div>
+          <div class="project-preview-banner p-banner-3">
+            <span class="pill-green">PK // Brand Platform</span>
+            <div class="preview-title">FS 1947</div>
+          </div>
+          <div class="project-body">
+            <h3>FS 1947 Official</h3>
+            <p>Custom WordPress architecture with responsive layouts, clean brand storytelling, and streamlined navigation.</p>
+            <div class="tech-pills">
+              <span>Custom WP</span>
+              <span>Responsive</span>
+              <span>Cloudflare</span>
+            </div>
+            <a href="https://fs1947.com" target="_blank" class="project-live-btn">Visit Live Site &nearr;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Direct CTA to Projects Page -->
+      <div class="section-bottom-cta">
+        <a href="projects.html" class="liquid-btn magnetic-btn"><span>View All Projects &amp; Case Studies &rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About & Global Track Record Spotlight Section -->
+  <section class="section reveal" style="padding-top: 20px;">
+    <div class="container">
+      <div class="home-about-strip" id="aboutStripCard">
+        <div class="has-left">
+          <span class="mono-tag">ABOUT THE ARCHITECT // BBA + TECH</span>
+          <h3>Bridging Clean Web Engineering with <span class="text-green">Business Growth</span></h3>
+          <p>
+            Based in Lahore, Pakistan, I combine a Business Administration background with WordPress, Shopify, Technical SEO, and Meta Ads to help brands scale locally and internationally.
+          </p>
+          <div class="has-region-tags">
+            <span>PK Clients</span>
+            <span>UAE Projects</span>
+            <span>UK Brands</span>
+            <span>Turkey E-Com</span>
+            <span>US Funnels</span>
+            <span>Flutter (Dart) R&amp;D</span>
+          </div>
+        </div>
+
+        <div class="has-actions">
+          <a href="about.html" class="liquid-btn magnetic-btn"><span>More About Me &amp; Track Record &rarr;</span></a>
+          <a href="services.html" class="outline-btn magnetic-btn" style="text-align: center;">View Service Packages</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hi-Fi Contact Command Section -->
+  <section id="contact" class="section reveal">
+    <div class="container contact-box hifi-contact">
+      <span class="mono-tag">INITIATE PROJECT</span>
+      <h2 class="section-title" style="margin-top: 8px;">Let's Build Something <span class="text-green">Exceptional</span></h2>
+      <p class="section-desc">Ready to upgrade your website, launch a Shopify store, or scale leads? Start an inquiry or message directly.</p>
+
+      <div class="contact-details">
+        <a href="contact.html" class="liquid-btn magnetic-btn"><span>Open Project Inquiry Form &rarr;</span></a>
+        <a href="https://wa.me/923084665789?text=Hi%20Abdul%20Manan,%20I%20want%20to%20discuss%20a%20project." target="_blank" class="outline-btn magnetic-btn">WhatsApp: +92 308 4665789</a>
+        <button type="button" class="contact-pill copy-btn" id="copyEmailBtn" data-email="iamabdulmanan.me@gmail.com">
+          <span id="emailText">iamabdulmanan.me@gmail.com</span>
+          <span class="copy-tag" id="copyBadge">Copy</span>
+        </button>
+      </div>
+
+      <div class="social-links">
+        <a href="https://wa.me/923084665789" target="_blank" class="social-icon-btn" title="WhatsApp">
+          <i class="ri-whatsapp-line"></i>
+        </a>
+        <a href="https://www.linkedin.com/company/abdulmanan-me/" target="_blank" class="social-icon-btn" title="LinkedIn">
+          <i class="ri-linkedin-fill"></i>
+        </a>
+        <a href="https://www.instagram.com/iamabdulmanan.me/" target="_blank" class="social-icon-btn" title="Instagram">
+          <i class="ri-instagram-line"></i>
+        </a>
+        <a href="https://github.com/abdulmanan095" target="_blank" class="social-icon-btn" title="GitHub">
+          <i class="ri-github-fill"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hi-Fi Liquid Glass Footer -->
+  <footer class="hifi-footer" id="hifiFooter">
+    <div class="footer-top-glow"></div>
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- Column 1: Brand & Socials -->
+        <div class="footer-brand-col">
+          <a href="index.html" class="logo custom-footer-logo" aria-label="Abdul Manan Home">
+            <img src="footer-logo.png" alt="Abdul Manan" />
+          </a>
+          <p class="footer-tagline">
+            Engineering high-speed WordPress websites, Shopify stores, Technical SEO systems, and conversion-focused Meta Ad funnels for local and global brands.
+          </p>
+
+          <div class="footer-status-pill">
+            <span class="f-dot"></span>
+            <span>Available for Global &amp; Local Projects</span>
+          </div>
+
+          <div class="footer-socials">
+  <a href="https://wa.me/923084665789" target="_blank" rel="noopener noreferrer" class="f-social-btn" title="WhatsApp (+92 308 4665789)" aria-label="WhatsApp 1">
+    <i class="ri-whatsapp-line"></i>
+  </a>
+  <a href="https://wa.me/923484665778" target="_blank" rel="noopener noreferrer" class="f-social-btn wa-biz-btn" title="WhatsApp Business (+92 348 4665778)" aria-label="WhatsApp Business">
+    <i class="ri-whatsapp-line"></i>
+    <span class="wa-biz-tag">B</span>
+  </a>
+  <a href="https://www.linkedin.com/company/abdulmanan-me/" target="_blank" rel="noopener noreferrer" class="f-social-btn" title="LinkedIn" aria-label="LinkedIn">
+    <i class="ri-linkedin-fill"></i>
+  </a>
+  <a href="https://www.instagram.com/iamabdulmanan.me/" target="_blank" rel="noopener noreferrer" class="f-social-btn" title="Instagram" aria-label="Instagram">
+    <i class="ri-instagram-line"></i>
+  </a>
+  <a href="https://github.com/abdulmanan095" target="_blank" rel="noopener noreferrer" class="f-social-btn" title="GitHub" aria-label="GitHub">
+    <i class="ri-github-fill"></i>
+  </a>
+  <a href="https://x.com/ADM_AbdulManan" target="_blank" rel="noopener noreferrer" class="f-social-btn" title="X" aria-label="X">
+    <i class="ri-twitter-x-line"></i>
+  </a>
+  <a href="mailto:iamabdulmanan.me@gmail.com" class="f-social-btn" title="Email (iamabdulmanan.me@gmail.com)" aria-label="Email">
+    <i class="ri-mail-send-line"></i>
+  </a>
+</div>
+        </div>
+
+        <!-- Column 2: Quick Navigation -->
+        <div class="footer-links-col">
+          <span class="footer-col-title">NAVIGATION</span>
+          <ul class="footer-nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Core Services -->
+        <div class="footer-links-col">
+          <span class="footer-col-title">CAPABILITIES</span>
+          <ul class="footer-nav-list">
+            <li><a href="services.html">WordPress Architecture</a></li>
+            <li><a href="services.html">Shopify Store Builds</a></li>
+            <li><a href="services.html">Technical &amp; On-Page SEO</a></li>
+            <li><a href="services.html">Meta Ads &amp; Lead Funnels</a></li>
+            <li><a href="services.html">Speed &amp; UI Overhaul</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Direct Command & Live Time -->
+        <div class="footer-contact-col">
+          <span class="footer-col-title">DIRECT COMMAND</span>
+
+          <div class="footer-contact-cards">
+            <a href="https://wa.me/923084665789?text=Hi%20Abdul%20Manan,%20let's%20discuss%20a%20project." target="_blank" class="f-contact-item">
+              <i class="ri-whatsapp-fill text-green"></i>
+              <div>
+                <small>WhatsApp Direct</small>
+                <strong>+92 308 4665789</strong>
+              </div>
+            </a>
+
+            <button type="button" class="f-contact-item f-copy-email" id="footerCopyBtn" data-email="iamabdulmanan.me@gmail.com">
+              <i class="ri-mail-send-line text-purple"></i>
+              <div>
+                <small>Email Address <span class="f-copy-badge" id="footerCopyTag">Copy</span></small>
+                <strong>iamabdulmanan.me@gmail.com</strong>
+              </div>
+            </button>
+
+            <div class="f-time-box">
+              <div>
+                <small>Base Location</small>
+                <strong>Lahore, Pakistan</strong>
+              </div>
+              <div class="f-clock-pill" id="footerLiveClock">--:-- PKT</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="footer-bottom-bar">
+        <p>&copy; 2026 Abdul Manan. Engineered in Lahore, Pakistan.</p>
+
+        <div class="footer-bottom-right">
+          <span class="footer-regions">PK &bull; UAE &bull; UK &bull; TR &bull; US</span>
+          <button type="button" class="back-to-top-btn" id="backToTopBtn" title="Back to Top">
+            <span>Top</span>
+            <i class="ri-arrow-up-line"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive Spotlight, 3D Tilt, Typewriter, Magnetic Buttons & Scroll Reveal Script -->
+  <script>
+    // 1. Top Scroll Progress Bar
+    const progressBar = document.getElementById('scrollProgressBar');
+    window.addEventListener('scroll', () => {
+      if (!progressBar) return;
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      progressBar.style.width = `${progress}%`;
+    }, { passive: true });
+
+    // 2. Mouse spotlight effect on Bento, Project, Pipeline & About cards
+    document.querySelectorAll('.bento-card, .hifi-project-card, .pipe-step, .home-about-strip').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--y', `${e.clientY - rect.top}px`);
+      });
+    });
+
+    // 3. Subtle 3D Tilt on Hero Profile Card
+    const tiltCard = document.getElementById('tiltProfile');
+    if (tiltCard && window.matchMedia('(hover: hover)').matches) {
+      tiltCard.addEventListener('mousemove', e => {
+        const rect = tiltCard.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        tiltCard.style.transform = `perspective(1000px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg)`;
+      });
+      tiltCard.addEventListener('mouseleave', () => {
+        tiltCard.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
+      });
+    }
+
+    // 4. Magnetic Pull Micro-Interaction on CTA Buttons
+    if (window.matchMedia('(hover: hover)').matches) {
+      document.querySelectorAll('.magnetic-btn').forEach(btn => {
+        btn.addEventListener('mousemove', e => {
+          const rect = btn.getBoundingClientRect();
+          const x = (e.clientX - rect.left - rect.width / 2) * 0.18;
+          const y = (e.clientY - rect.top - rect.height / 2) * 0.22;
+          btn.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
+        });
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = 'translate3d(0, 0, 0)';
+        });
+      });
+    }
+
+    // 5. Live Typewriter Role Cycle
+    const roles = [
+      'WordPress & Shopify Architecture',
+      'Technical & On-Page SEO',
+      'Meta Ads Lead Generation',
+      'Sub-Second Speed Optimization'
+    ];
+    let roleIdx = 0;
+    let charIdx = 0;
+    let isDeleting = false;
+    const roleEl = document.getElementById('typedRole');
+
+    function typeLoop() {
+      if (!roleEl) return;
+      const current = roles[roleIdx];
+      if (isDeleting) {
+        roleEl.textContent = current.substring(0, charIdx - 1);
+        charIdx--;
+      } else {
+        roleEl.textContent = current.substring(0, charIdx + 1);
+        charIdx++;
+      }
+
+      let speed = isDeleting ? 40 : 75;
+      if (!isDeleting && charIdx === current.length) {
+        speed = 1800;
+        isDeleting = true;
+      } else if (isDeleting && charIdx === 0) {
+        isDeleting = false;
+        roleIdx = (roleIdx + 1) % roles.length;
+        speed = 350;
+      }
+      setTimeout(typeLoop, speed);
+    }
+    typeLoop();
+
+    // 6. Smooth Scroll Reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // 7. Click-to-copy email button
+    const copyBtn = document.getElementById('copyEmailBtn');
+    const copyBadge = document.getElementById('copyBadge');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const email = copyBtn.getAttribute('data-email');
+        navigator.clipboard.writeText(email);
+        copyBadge.textContent = 'Copied!';
+        copyBadge.style.background = 'var(--green)';
+        copyBadge.style.color = '#07070a';
+        setTimeout(() => {
+          copyBadge.textContent = 'Copy';
+          copyBadge.style.background = 'rgba(255,255,255,0.08)';
+          copyBadge.style.color = 'var(--green)';
+        }, 2000);
+      });
+    }
+
+    // 8. Header Green Cursor Spotlight, Scroll Elevation & Mobile Toggle
+    const mainHeader = document.getElementById('mainHeader');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+
+    if (mainHeader) {
+      mainHeader.addEventListener('mousemove', e => {
+        const rect = mainHeader.getBoundingClientRect();
+        mainHeader.style.setProperty('--hx', `${e.clientX - rect.left}px`);
+        mainHeader.style.setProperty('--hy', `${e.clientY - rect.top}px`);
+      });
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 30) {
+          mainHeader.classList.add('scrolled');
+        } else {
+          mainHeader.classList.remove('scrolled');
+        }
+      });
+    }
+
+    if (mobileMenuBtn && mainHeader) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mainHeader.classList.toggle('menu-open');
+      });
+    }
+
+    // 9. Dark & Light Mode Toggle with Cross-Page Memory
+    (function() {
+      const savedTheme = localStorage.getItem('adm-portfolio-theme');
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+
+      const themeBtn = document.getElementById('themeToggleBtn');
+      if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+          const currentTheme = document.documentElement.getAttribute('data-theme');
+          if (currentTheme === 'light') {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('adm-portfolio-theme', 'dark');
+          } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('adm-portfolio-theme', 'light');
+          }
+        });
+      }
+    })();
+
+    // 10. Background-Only Ambient Cursor Glow (Green <-> Purple)
+    (function() {
+      if (window.matchMedia('(hover: none)').matches || window.innerWidth <= 768) return;
+
+      const glowEl = document.createElement('div');
+      glowEl.className = 'page-cursor-glow';
+      glowEl.setAttribute('aria-hidden', 'true');
+      document.body.prepend(glowEl);
+
+      const interactiveOrSectionSelector = [
+        'header', 'footer', 'nav', 'a', 'button', 'input', 'textarea', 'select', 'form',
+        '.bento-card', '.srv-card', '.pkg-card', '.hifi-project-card', '.case-study-card',
+        '.channel-card', '.form-wrapper-panel', '.form-section-block', '.next-card',
+        '.d-stat-card', '.stack-col', '.modal-panel', '.contact-box', '.service-card',
+        '.home-about-strip', '.pipeline-box', '.hud-profile-wrapper'
+      ].join(',');
+
+      let targetX = -500;
+      let targetY = -500;
+      let currentX = -500;
+      let currentY = -500;
+
+      document.addEventListener('mousemove', (e) => {
+        targetX = e.clientX;
+        targetY = e.clientY;
+
+        const overBlockedElement = e.target && e.target.closest(interactiveOrSectionSelector);
+        if (overBlockedElement) {
+          glowEl.classList.remove('bg-active');
+        } else {
+          glowEl.classList.add('bg-active');
+        }
+
+        const scrollRatio = window.scrollY / Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+        const verticalZone = e.clientY / Math.max(1, window.innerHeight);
+
+        if ((scrollRatio + verticalZone) > 0.85) {
+          glowEl.classList.add('zone-purple');
+        } else {
+          glowEl.classList.remove('zone-purple');
+        }
+      }, { passive: true });
+
+      document.addEventListener('mouseleave', () => {
+        glowEl.classList.remove('bg-active');
+      });
+
+      function animateGlow() {
+        currentX += (targetX - currentX) * 0.12;
+        currentY += (targetY - currentY) * 0.12;
+        glowEl.style.setProperty('--cx', `${currentX.toFixed(1)}px`);
+        glowEl.style.setProperty('--cy', `${currentY.toFixed(1)}px`);
+        requestAnimationFrame(animateGlow);
+      }
+
+      requestAnimationFrame(animateGlow);
+    })();
+  </script>
+
+<script>
+    // Hi-Fi Footer Interactive Spotlight, Live Lahore Clock, Email Copy & Back-to-Top
+    (function() {
+      const footerEl = document.getElementById('hifiFooter');
+      if (footerEl) {
+        footerEl.addEventListener('mousemove', (e) => {
+          const rect = footerEl.getBoundingClientRect();
+          footerEl.style.setProperty('--fx', `${e.clientX - rect.left}px`);
+          footerEl.style.setProperty('--fy', `${e.clientY - rect.top}px`);
+        });
+      }
+
+      // Live Lahore PKT Clock
+      const clockEl = document.getElementById('footerLiveClock');
+      function updateLahoreClock() {
+        if (!clockEl) return;
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('en-US', {
+          timeZone: 'Asia/Karachi',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true
+        });
+        clockEl.textContent = `${timeStr} PKT`;
+      }
+      updateLahoreClock();
+      setInterval(updateLahoreClock, 15000);
+
+      // Footer Click-to-Copy Email
+      const fCopyBtn = document.getElementById('footerCopyBtn');
+      const fCopyTag = document.getElementById('footerCopyTag');
+      if (fCopyBtn && fCopyTag) {
+        fCopyBtn.addEventListener('click', () => {
+          const email = fCopyBtn.getAttribute('data-email');
+          navigator.clipboard.writeText(email);
+          fCopyTag.textContent = 'Copied!';
+          setTimeout(() => {
+            fCopyTag.textContent = 'Copy';
+          }, 2000);
+        });
+      }
+
+      // Smooth Scroll Back to Top
+      const topBtn = document.getElementById('backToTopBtn');
+      if (topBtn) {
+        topBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+    })();
+  </script>
+
+<script>
+    // Universal Mobile Menu & Auto-Active Page Handler
+    (function() {
+      const header = document.getElementById('mainHeader');
+      if (!header) return;
+
+      // 1. Auto-detect current page and set active link cleanly
+      const rawPage = window.location.pathname.split('/').pop().toLowerCase();
+      const currentPage = rawPage === '' ? 'index.html' : (rawPage.endsWith('.html') ? rawPage : rawPage + '.html');
+
+      header.querySelectorAll('.nav-links a').forEach(function(link) {
+        link.classList.remove('active');
+        const linkPage = (link.getAttribute('href') || '').split('/').pop().toLowerCase();
+        if (linkPage === currentPage) {
+          link.classList.add('active');
+        }
+      });
+
+      // 2. Clean mobile menu toggle
+      const oldBtn = document.getElementById('mobileMenuBtn');
+      if (!oldBtn) return;
+
+      const cleanBtn = oldBtn.cloneNode(true);
+      oldBtn.parentNode.replaceChild(cleanBtn, oldBtn);
+
+      cleanBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        header.classList.toggle('menu-open');
+      });
+
+      document.addEventListener('click', function(e) {
+        if (header.classList.contains('menu-open') && !header.contains(e.target)) {
+          header.classList.remove('menu-open');
+        }
+      });
+
+      header.querySelectorAll('.nav-links a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          header.classList.remove('menu-open');
+        });
+      });
+    })();
+  </script>
+
+<script src="animations.js"></script>
+</body>
+
+</body>
+</html>
