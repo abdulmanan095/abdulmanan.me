@@ -202,18 +202,19 @@ body {
 .liquid-btn::before {
   content: "";
   position: absolute;
-  top: 100%;
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background: var(--green);
   border-radius: 40%;
-  transition: top 0.45s ease, border-radius 0.45s ease;
+  transform: translateY(100%);
+  transition: transform 0.45s ease, border-radius 0.45s ease;
   z-index: 0;
 }
 
 .liquid-btn:hover::before {
-  top: 0;
+  transform: translateY(0);
   border-radius: 0;
 }
 
@@ -1416,9 +1417,9 @@ body {
 }
 
 @keyframes scanSweep {
-  0% { top: 5%; }
-  50% { top: 82%; }
-  100% { top: 5%; }
+  0% { transform: translateY(18px); }
+  50% { transform: translateY(310px); }
+  100% { transform: translateY(18px); }
 }
 
 /* Hover Hint Pill */
@@ -2918,15 +2919,16 @@ body {
   content: "";
   position: absolute;
   top: 0;
-  left: -100%;
+  left: 0;
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
-  transition: left 0.55s ease;
+  transform: translateX(-100%);
+  transition: transform 0.55s ease;
 }
 
 .header-cta-btn:hover::before {
-  left: 100%;
+  transform: translateX(100%);
 }
 
 .header-cta-btn:hover {
