@@ -6,7 +6,7 @@
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ---------------------------------------------------------
-  // 1. SEAMLESS SPA PAGE CURTAIN WIPE (ENTER + EXIT)
+  // 1. SEAMLESS SPA PAGE CURTAIN WIPE (FAST MOBILE + DESKTOP)
   // ---------------------------------------------------------
   const curtain = document.createElement('div');
   curtain.className = 'adm-page-curtain';
@@ -14,9 +14,7 @@
   document.body.prepend(curtain);
 
   requestAnimationFrame(() => {
-    setTimeout(() => {
-      curtain.classList.add('curtain-open');
-    }, 70);
+    curtain.classList.add('curtain-open');
   });
 
   // Back button (bfcache) par curtain wapis open karne ke liye
@@ -27,7 +25,7 @@
     }
   });
 
-  if (!prefersReduced) {
+  if (!prefersReduced && !isTouchDevice) {
     document.querySelectorAll('a[href]').forEach((link) => {
       const href = link.getAttribute('href');
       if (
@@ -48,7 +46,7 @@
         curtain.classList.add('curtain-closing');
         setTimeout(() => {
           window.location.href = href;
-        }, 380);
+        }, 180);
       });
     });
   }
